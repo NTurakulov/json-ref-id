@@ -1,0 +1,36 @@
+{
+  "name": "json-ref-id",
+  "version": "1.0.0",
+  "description": "Simple tool for restoring $ref -> $id references in JSON objects",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NTurakulov/json-deref.git"
+  },
+  "keywords": [
+    "json",
+    "deserialization",
+    "circular",
+    "reference",
+    "ref",
+    "serialization"
+  ],
+  "author": "Nozim Turakulov",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/NTurakulov/json-deref/issues"
+  },
+  "homepage": "https://github.com/NTurakulov/json-deref#readme",
+  "dependencies": {
+    "lodash.forown": "^4.4.0",
+    "lodash.isobject": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/lodash.forown": "^4.4.6",
+    "@types/lodash.isobject": "^3.0.6"
+  }
+}
