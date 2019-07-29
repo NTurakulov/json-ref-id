@@ -1,5 +1,6 @@
 import forOwn from "lodash.forown";
 import isObject from "lodash.isobject";
+import includes from "lodash.includes";
 
 /**
  * Restores all $ref -> $id references in object.
@@ -32,12 +33,17 @@ interface IDerefObject {
 /**
  * Describes exact instance of derefencer
  */
-class Deref {
+export class Deref {
 
     /**
      * id-target reference map
      */
     private map: any = {};
+
+    /**
+     * processing objects stack
+     */
+    private stack: IDerefObject[] = [];
 
     /**
      * Restores $ref->$id referneces in object
@@ -67,8 +73,16 @@ class Deref {
         }
 
         // if not an object (simple literals)
-        if (!isObject(object))
+        if (!isObject(object)) {
             return;
+        }
+        
+        if (includes(this.stack, object)) {
+            return;
+        }
+
+        // add processing element to stack
+        this.stack.push(object);
 
         // NOTE: explicitly cast to IDerefObject after isObject check to avoid type error
         let id = (<IDerefObject>object)[$id];
@@ -89,6 +103,9 @@ class Deref {
                 this.dereference(child);
             }
         });
+
+        // Remove processed element from stack
+        this.stack.pop();
     }
 
     /**
