@@ -76,7 +76,9 @@ export class Deref {
         if (!isObject(object)) {
             return;
         }
-        
+
+        object = (<IDerefObject>object);
+
         if (includes(this.stack, object)) {
             return;
         }
@@ -85,9 +87,12 @@ export class Deref {
         this.stack.push(object);
 
         // NOTE: explicitly cast to IDerefObject after isObject check to avoid type error
-        let id = (<IDerefObject>object)[$id];
+        let id = object[$id];
         if (id) // if object has own id - add it to the map
+        {
             this.map[id] = object;
+            delete object.$id;
+        }
 
         // process children
         forOwn(object, (value, key) => {
