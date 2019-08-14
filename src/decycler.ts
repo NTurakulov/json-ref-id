@@ -27,7 +27,12 @@ export class Decycler {
             return;
         }
 
-        this.set$id(object);
+        if (has(object, Constants.$id)) {
+            return;
+        }
+
+        this.cache.push(object);
+        (<any>object)[Constants.$id] = this.cache.length;
 
         forOwn(object, (value: any, key: string, source: any) => {
             if (value == null) { // null or undefined
@@ -40,12 +45,5 @@ export class Decycler {
                 this.removeCircularReferences(value);
             }
         });
-    }
-
-    private set$id(object: any) {
-        if (!has(object, Constants.$id)) {
-            this.cache.push(object);
-            object.$id = this.cache.length;
-        }
     }
 }
