@@ -7,7 +7,6 @@ import * as Constants from './constants';
 
 export class Decycler {
 
-    private $id = '$id';
     private cache: any[] = [];
 
     public removeCircularReferences(object: any) {
@@ -31,6 +30,10 @@ export class Decycler {
         this.set$id(object);
 
         forOwn(object, (value: any, key: string, source: any) => {
+            if (value == null) { // null or undefined
+                return;
+            }
+
             if (value.$id) {
                 source[key] = { $ref: value.$id };
             } else {
