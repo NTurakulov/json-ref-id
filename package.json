@@ -1,7 +1,7 @@
 {
   "name": "json-ref-id",
-  "version": "1.4.0",
-  "description": "Simple tool for restoring $ref -> $id references in JSON objects",
+  "version": "2.0.0",
+  "description": "Simple tool for removing/restoring circulr references in JSON objects with $ref -> $id links",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,7 +19,9 @@
     "ref",
     "serialization"
   ],
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Nozim Turakulov",
   "license": "LGPL-3.0-or-later",
   "bugs": {
@@ -27,8 +29,14 @@
   },
   "homepage": "https://github.com/NTurakulov/json-deref#readme",
   "dependencies": {
+    "@types/lodash.has": "^4.5.6",
+    "@types/lodash.isarray": "^4.0.6",
+    "@types/lodash.isdate": "^4.0.6",
     "lodash.forown": "^4.4.0",
+    "lodash.has": "^4.5.2",
     "lodash.includes": "^4.3.0",
+    "lodash.isarray": "^4.0.0",
+    "lodash.isdate": "^4.0.1",
     "lodash.isobject": "^3.0.2"
   },
   "devDependencies": {
