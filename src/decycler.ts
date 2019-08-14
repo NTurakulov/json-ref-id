@@ -3,6 +3,7 @@ import isDate from 'lodash.isdate';
 import isArray from 'lodash.isarray';
 import has from 'lodash.has';
 import forOwn from 'lodash.forown';
+import map from 'lodash.map';
 import * as Constants from './constants';
 
 export class Decycler {
@@ -12,8 +13,7 @@ export class Decycler {
     public removeCircularReferences(object: any) {
         if (isArray(object)) {
             object.forEach(element => this.processObject(element));
-        }
-        else {
+        } else {
             this.processObject(object);
         }
     }
@@ -42,7 +42,19 @@ export class Decycler {
             if (value.$id) {
                 source[key] = { $ref: value.$id };
             } else {
-                this.removeCircularReferences(value);
+                if (isArray(object)) {
+                    let arrayWithoutReferences = map(object, element => {
+                        if (has(element, Constants.$id)) {
+                            return { $ref: element.$id };
+                        } else {
+                            return this.processObject(element)
+                        }
+                    });
+                    source[key] = arrayWithoutReferences;
+                }
+                else {
+                    this.processObject(object);
+                }
             }
         });
     }
