@@ -39,15 +39,20 @@ export class Decycler {
                 return;
             }
 
+            if (key === Constants.$id || key === Constants.$ref) {
+                return;
+            }
+
             if (value.$id) {
                 source[key] = { $ref: value.$id };
             } else {
-                if (isArray(object)) {
-                    let arrayWithoutReferences = map(object, element => {
+                if (isArray(value)) {
+                    let arrayWithoutReferences = map(value, element => {
                         if (has(element, Constants.$id)) {
                             return { $ref: element.$id };
                         } else {
-                            return this.processObject(element)
+                            this.processObject(element)
+                            return element;
                         }
                     });
                     source[key] = arrayWithoutReferences;

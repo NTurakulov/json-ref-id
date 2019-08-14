@@ -1,6 +1,6 @@
 {
   "name": "json-ref-id",
-  "version": "2.0.5",
+  "version": "2.0.7",
   "description": "Simple tool for removing/restoring circulr references in JSON objects with $ref -> $id links",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
